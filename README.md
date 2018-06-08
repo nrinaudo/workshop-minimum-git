@@ -1,5 +1,5 @@
 foo
 
-Dolor sit amet
+bar
 
 Consectetur adipiscing elit

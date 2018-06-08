@@ -1,4 +1,4 @@
-Lorem ipsum
+foo
 
 Dolor sit amet
 

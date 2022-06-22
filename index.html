@@ -11,47 +11,8 @@ class: center, middle
 
 # Git: the bare minimum
 
-Nicolas Rinaudo • [`@NicolasRinaudo`](https://twitter.com/NicolasRinaudo) • [Besedo](http://besedo.com)
+[@NicolasRinaudo](https://twitter.com/NicolasRinaudo)
 
----
-
-## Overview
-
-This is meant for developers with a basic understanding of git.
-
-The goal is to get hands-practice with what I deem the bare minimum git knowledge:
-
---
-
-* retrieving and branching off of existing repositories
-
---
-
-* modifying the content of a repository
-
---
-
-* exposing modifications in a clean, logical and easily reviewable way
-
----
-
-## Caveat Emptor
-
-This workshop is meant for a very specific kind of git workflow:
-
-* central repository
-
-* features implemented in branches
-
-* approved modifications merged into a master branch
-
---
-
-The practice gained here might not be sufficient for all workflows.
-
---
-
-This workshop is meant to demistify some of the common scenarios, and is not a substitue to actually learning git.
 
 ---
 
@@ -65,31 +26,52 @@ class: center, middle
 
 * `commit`
 
+???
+
+* `commit`: state of the project at a given point in time
+
+--
+
 * `repository`
+
+???
+
+* `repository`: set of commits representing the history of a project, where a project is a set of file
+
+--
 
 * `remote`
 
+???
+
+* `remote`: version of the repository hosted somewhere else (might be a different directory on the same computer)
+
+--
+
 * `staging area`
 
+???
+
+* `staging area`: list of modifications selected for inclusion in a commit
+
+--
+
 * `tag`
+
+???
+
+* `tag`: named commit
+
+--
 
 * `branch`
 
 ???
 
-[Reference](https://git-scm.com/docs/gitglossary)
-
-* `commit`: state of the project at a given point in time
-
-* `repository`: set of commits representing the history of a project, where a project is a set of file
-
-* `remote`: version of the repository hosted somewhere else (might be a different directory on the same computer)
-
-* `staging area`: list of modifications selected for inclusion in a commit
-
-* `tag`: named commit
-
 * `branch`: active line of development, the last commit having a permanent alias to HEAD
+
+
+(See https://git-scm.com/docs/gitglossary)
 
 ---
 
@@ -103,16 +85,16 @@ class: center, middle
 
 * retrieving it for the first time
 
-```shell
-❱ git clone URI
+```console
+$ git clone [URI]
 ```
 
 --
 
 * updating a local version
 
-```shell
-❱ git pull
+```console
+$ git pull
 ```
 
 ???
@@ -129,17 +111,17 @@ In theory, you should only `pull` from `master`, which you're not allowed to cha
 
 * step-by-step
 
-```shell
-❱ git branch BRANCH
-❱ git checkout BRANCH
+```console
+$ git branch [BRANCH]
+$ git checkout [BRANCH]
 ```
 
 --
 
 * shortcut
 
-```shell
-❱ git checkout -b BRANCH
+```console
+$ git checkout -b [BRANCH]
 ```
 
 ---
@@ -154,15 +136,17 @@ class: center, middle
 
 * clone repository https://github.com/nrinaudo/workshop-minimum-git.git
 
+--
+
 * branch out to your name, eg `nicolas.rinaudo`
 
-???
+---
 
-```
-git clone git@github.com:nrinaudo/workshop-minimum-git.git
-cd workshop-minimum-git
-git checkout -b foo.bar
-```
+## Checking your work
+
+* `git branch`: 2 branches, `master` and yours (flagged as the current one)
+
+* `git diff`: empty
 
 ---
 
@@ -174,18 +158,18 @@ class: center, middle
 
 ## Staging modifications
 
-* adding a file:
+* adding a file (or its modifications):
 
-```shell
-❱ git add FILE
+```console
+$ git add [FILE]
 ```
 
 --
 
 * deleting a file:
 
-```shell
-❱ git rm FILE
+```console
+$ git rm [FILE]
 ```
 
 ???
@@ -196,8 +180,8 @@ Note that you can also delete the file, then stage it with `git add`
 
 * renaming a file:
 
-```shell
-❱ git mv FILE NEW_FILE
+```console
+$ git mv [FILE] [NEW_FILE]
 ```
 
 ???
@@ -206,22 +190,20 @@ Note that you can also `mv` the file, then stage it with `git add`
 
 ---
 
-## Checking what you've done
-
-Before commiting your work, it's important to double check it.
+## Pre-commit health check
 
 * status of the staging area:
 
-```shell
-❱ git status
+```console
+$ git status
 ```
 
 --
 
 * detailled differences:
 
-```shell
-❱ git diff --staged
+```console
+$ git diff --staged
 ```
 
 ???
@@ -235,21 +217,19 @@ Other useful commands:
 
 ## Commiting your work
 
-Once you're confident that you want to commit your staging area:
-
-```shell
-❱ git commit
+```console
+$ git commit
 ```
 
 ---
 
-## Checking what you've committed
+## Post-commit health check
 
 
-* View detailled differences:
+* Detailled differences:
 
-```shell
-❱ git diff HEAD~1
+```console
+$ git diff HEAD~1
 ```
 
 ???
@@ -261,11 +241,11 @@ This is the first time the `HEAD~1` syntax is used:
 
 --
 
-* View summarised differences:
+* Summarised differences:
 
-```shell
-❱ git diff --summary HEAD~1
-❱ git diff --stat HEAD~1
+```console
+$ git diff --summary HEAD~1
+$ git diff --stat HEAD~1
 ```
 
 ???
@@ -276,10 +256,10 @@ This is the first time the `HEAD~1` syntax is used:
 
 --
 
-* View the list of commits:
+* Commit list:
 
-```shell
-❱ git log
+```console
+$ git log
 ```
 
 ???
@@ -289,7 +269,7 @@ I'm personally quite partial to `git log --pretty=oneline`
 `log` output can be heavily customised. Here's an interesting alias to create:
 
 ```
-lg => log --color --graph --pretty=format:'%C(bold white)%h%Creset -%C(bold green)%d%Creset %s %C(bold green)(%cr)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+lg =$ log --color --graph --pretty=format:'%C(bold white)%h%Creset -%C(bold green)%d%Creset %s %C(bold green)(%cr)%Creset %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
 ```
 
 ---
@@ -304,57 +284,35 @@ class: center, middle
 
 * delete `DELETEME.md`
 
+--
+
 * move `MOVEME.md` to `MOVED.md`
 
-* create a new `README.md`
-  * _hint:_ You can use this [lorem ipsum generator](https://loremipsum.io/generator/?n=3&t=p) for content, say, 3 paragraphs.
-  * _hint:_ Paragraphs are separated by an explicit empty line. This is important for what follows.
+--
+
+* create `README.md`
+
+```plaintext
+FOO
+
+BAR
+
+BAZ
+```
+
+--
 
 * commit your work
 
-???
-
-```shell
-git rm DELETEME.md
-
-git mv MOVEME.md MOVED.md
-
-cat <<EOT >| README.md
-Lorem ipsum
-
-Dolor sit amet
-
-Consectetur adipiscing elit
-EOT
-
-git add README.md
-
-git commit -m "Clean up markdown files"
-```
-
 ---
 
-### Expected output (diff with previous)
+## Checking your work
 
-* Summarised diff:
+* 3 commits
 
-```shell
-❱ git diff --summary HEAD~1
-delete mode 100644 DELETEME.md
-rename MOVEME.md => MOVED.md (100%)
-create mode 100644 README.md
-```
+* 2 files, `README.md` and `MOVED.md`
 
----
-
-### Expected output (log)
-
-```shell
-❱ git log --pretty=oneline
-ba1abdb6e Clean up markdown files
-192181b56 Setup the basics for the workshop
-87ef53f3f Initialise repository
-```
+* staging area diff: empty
 
 ---
 
@@ -366,21 +324,29 @@ class: center, middle
 
 ## Patching
 
-It's possible to stage parts of a file only:
+* Staging parts of a file:
 
-```shell
-❱ git add -p FILE
+```console
+$ git add -p [FILE]
 ```
 
 --
 
-Git identifies what it thinks are atomical changes (_hunks_) and asks you what to do with each:
+* Possible actions on each atomical change (_hunk_):
 
-* `y`: stage it
-* `a`: stage all
-* `n`: do not stage it
-* `q`: do not stage it, nor any subsequent one
-* `s`: split it
+  * `y`: stage it
+--
+
+  * `a`: stage all
+--
+
+  * `n`: do not stage it
+--
+
+  * `q`: do not stage it, nor any subsequent one
+--
+
+  * `s`: split it
 
 ---
 
@@ -392,69 +358,31 @@ class: center, middle
 
 ## Tasks
 
-* edit `README.md` to replace each paragraph by another
+* edit `README.md` to contain:
 
-* commit each paragraph in a different commit
-  * it's possible that you will have to split hunks
-
-???
-
-```shell
-cat <<EOT >| README.md
+```plaintext
 foo
 
 bar
 
 baz
-EOT
-
-git add -p README.md
-
-git commit -m "Update first paragraph"
-
-git add -p README.md
-
-git commit -m "Update second paragraph"
-
-git add -p README.md
-
-git commit -m "Update third paragraph"
 ```
+
+--
+
+* commit each paragraph in a different commit (you might have to split _hunks_)
+  * _hint_: if you make a mistake, `git reset` to unstage everything.
 
 ---
 
-### Expected output (log)
+## Checking your work
 
-```shell
-❱ git log --pretty=oneline
-3dcbde657 Update third paragraph
-eaa9faff8 Update second paragraph
-c2f34f358 Update first paragraph
-ba1abdb6e Clean up markdown files
-192181b56 Setup the basics for the workshop
-87ef53f3f Initialise repository
-```
+* 6 commits
 
----
+* Commit 4, 5 and 6 each update a single paragraph of `README.md`
 
-### Expected output (diff with previous)
+* staging area diff: empty
 
-```shell
-❱ git diff HEAD~3
-diff --git a/README.md b/README.md
-index b617d62..cf69ed7 100644
---- a/README.md
-+++ b/README.md
-@@ -1,5 +1,5 @@
--Lorem ipsum
-+foo
-
--Dolor sit amet
-+bar
-
--Consectetur adipiscing elit
-+baz
-```
 
 ---
 
@@ -468,14 +396,16 @@ class: center, middle
 
 * a file:
 
-```shell
-❱ git reset FILE
+```console
+$ git reset [FILE]
 ```
+
+--
 
 * part(s) of a file:
 
-```shell
-❱ git reset -p FILE
+```console
+$ git reset -p [FILE]
 ```
 
 ---
@@ -490,98 +420,35 @@ class: center, middle
 
 * edit `README.md` to replace each paragraph by another
 
-* add `README.md`
-
-* unstage the second and third paragraph
-
-* commit your work
-
-???
-
-```shell
-cat <<EOT >| README.md
+```plaintext
 foo2
 
 bar2
 
 baz2
-EOT
-git add README.md
-git reset -p README.md
-git commit -m "Update the first paragraph (a second time)"
 ```
+
+--
+
+* stage `README.md`
+
+--
+
+* unstage the second and third paragraph
+
+--
+
+* commit your work
 
 ---
 
-### Expected output (status)
+## Checking your work
 
-```shell
-❱ git status
-On branch nicolas.rinaudo
-Changes not staged for commit:
-  (use "git add <file>..." to update what will be committed)
-  (use "git checkout -- <file>..." to discard changes in working directory)
+* 7 commits
 
-	modified:   README.md
+* last commit's diff: `foo2` in `README.md`
 
-no changes added to commit (use "git add" and/or "git commit -a")
-```
----
-
-### Expected output (log)
-
-
-```shell
-❱ git log --pretty=oneline
-2dfbf7564 Update the first paragraph (a second time)
-3dcbde657 Update third paragraph
-eaa9faff8 Update second paragraph
-c2f34f358 Update first paragraph
-ba1abdb6e Clean up markdown files
-192181b56 Setup the basics for the workshop
-87ef53f3f Initialise repository
-```
-
----
-
-### Expected output (diff with staging)
-
-```shell
-❱ git diff
-diff --git a/README.md b/README.md
-index 19fca47..0ec58b6 100644
---- a/README.md
-+++ b/README.md
-@@ -1,5 +1,5 @@
- foo2
-
--bar
-+bar2
-
--baz
-+baz2
-```
-
----
-
-### Expected output (diff with previous)
-
-```shell
-❱ git diff HEAD~1
-diff --git a/README.md b/README.md
-index cf69ed7..0ec58b6 100644
---- a/README.md
-+++ b/README.md
-@@ -1,5 +1,5 @@
--foo
-+foo2
-
--bar
-+bar2
-
--baz
-+baz2
-```
+* staging area's diff: `bar2` and `baz2`
 
 ---
 
@@ -593,21 +460,10 @@ class: center, middle
 
 ## Amending the last commit
 
-If you need to correct your last commit, you can stage modications and run:
 
-```shell
-❱ git commit --amend
+```console
+$ git commit --amend
 ```
-
-(Be careful of [typos](https://twitter.com/francesc/status/965710491677945856) here)
-
---
-
-This also gives you the opportunity to reword your commit message if you need to.
-
-???
-
-If you don't need to, you can use `git commit --amend --no-edit`
 
 ---
 
@@ -621,51 +477,24 @@ class: center, middle
 
 * add the remaining modifications in `README.md`
 
-* shove them in the last commit
+--
+
+* include them in the last commit
+
+--
 
 * update the commit log to reflect the change
 
-???
-
-```shell
-git commit -a --amend -m "Update all paragraphs (a second time)"
-```
 
 ---
 
-### Expected output (log)
+## Checking your work
 
-```shell
-❱ git log --pretty=oneline
-db854c0a6 Update all paragraphs (a second time)
-3dcbde657 Update third paragraph
-eaa9faff8 Update second paragraph
-c2f34f358 Update first paragraph
-ba1abdb6e Clean up markdown files
-192181b56 Setup the basics for the workshop
-87ef53f3f Initialise repository
-```
+* 7 commits
 
----
+* last commit's diff: the entire `README.md` file
 
-### Expected output (diff)
-
-```shell
-❱ git diff HEAD~1
-diff --git a/README.md b/README.md
-index cf69ed7..0ec58b6 100644
---- a/README.md
-+++ b/README.md
-@@ -1,5 +1,5 @@
--foo
-+foo2
-
--bar
-+bar2
-
--baz
-+baz2
-```
+* staging area diff: empty
 
 ---
 
@@ -677,43 +506,45 @@ class: center, middle
 
 ## Interactive rebasing
 
-You can edit existing commits through:
-
-```shell
-❱ git rebase -i REF
+```console
+$ git rebase -i [REF]
 ```
 
-Where `REF` is a reference to the parent of the oldest commit you want to edit.
+Where `[REF]` is a reference to *the parent* of the oldest commit you want to edit.
 For example:
 * `master`
 * `cf69ed7`
 * `HEAD~2`
 
-???
+---
 
-`master` should be the most common used, given our workflow of creating feature branches off `master`
+## Interactive rebasing
 
+Allows you to:
 --
 
-This lets you:
 * delete one or more commits
+--
+
 * re-order commits
+--
+
 * merge ("squash") commits
+--
+
 * edit commits
+--
+
 * update a commit's message
 
 ---
 
 ### Safety net
 
-If you don't feel confident, you can "save" your work before rebasing
-
---
-
 * tag the current state
 
-```shell
-❱ git tag QUICKSAVE
+```console
+$ git tag QUICKSAVE
 ```
 
 ???
@@ -728,16 +559,16 @@ Or remember the hash of your current commit, if you have a galaxy brain.
 
 * if the result is not what you wanted, restore the saved state
 
-```shell
-❱ git reset --hard QUICKSAVE
+```console
+$ git reset --hard QUICKSAVE
 ```
 
 --
 
 * otherwise, delete the tag
 
-```shell
-❱ git tag -d QUICKSAVE
+```console
+$ git tag -d QUICKSAVE
 ```
 
 ???
@@ -750,8 +581,8 @@ It's important to delete the tag since very often, tags are used to trigger rele
 
 While in the process of rebasing, you can always abort
 
-```shell
-❱ git rebase --abort
+```console
+$ git rebase --abort
 ```
 
 ???
@@ -762,179 +593,197 @@ Meaning that you can abort a rebase:
 
 ---
 
-### Common scenarios ¹
+class: center, middle
 
-* Merging commits
+# Merging commits
 
-  * rebase interactively
-  * reorder things so that the commits to merge are adjacent
-  * `squash` or `fixup` the "youngest" commit
+---
+
+### Merging commits
+
+
+* rebase interactively
 
 --
 
-* Fixing a git message
+* reorder things so that the commits to merge are adjacent
 
-  * rebase interactively
-  * `reword` the desired commit(s)
+--
 
+* `squash` or `fixup` the "youngest" commit
 
 ---
 
 class: center, middle
 
-# Exercise: common scenarios ¹
+# Exercise: Merging commits
 
 ---
 
 ## Tasks
 
 * merge the 3 commits in which you initially edited `README.md`
+
   * _hint_: this does not include the last commit
   * _hint_: don't hesitate to play with `fixup` and `squash`
   * _hint_: don't hesitate to tag before attempting the rebase
 
-* update the resulting commit's log message
-
-???
-
-```shell
-git rebase -i master
-```
-
-* `r` on `c2f34f358`
-* `f` on `3dcbde657`
-* `f` on `eaa9faff8`
 ---
 
-### Expected output (log)
+## Checking your work
 
-```shell
-❱ git log --pretty=oneline
-9be035c7b Update all paragraphs (a second time)
-a3ee93a70 Update all paragraphs (a first time)
-ba1abdb6e Clean up markdown files
-192181b56 Setup the basics for the workshop
-87ef53f3f Initialise repository
-```
+* 5 commits
 
----
+* last commit diff: append 2 to each paragraph
 
-### Expected output (diff)
+* before-last commit diff: lower case each paragraph
 
-```shell
-❱ git diff HEAD~2 HEAD~1
-diff --git a/README.md b/README.md
-index b617d62..cf69ed7 100644
---- a/README.md
-+++ b/README.md
-@@ -1,5 +1,5 @@
--Lorem ipsum
-+foo
-
--Dolor sit amet
-+bar
-
--Consectetur adipiscing elit
-+baz
-```
-
----
-
-## Common scenarios ²
-
-* Fix an existing commit
-
-  * rebase interactively and `edit` that commit
-  * stage your fixes
-  * `amend` the last commit
-  * run `git rebase --continue`
-
---
-
-* Split an existing commit
-
-  * rebase interactively and `edit` that commit
-  * `reset` the desired file to the previous commit's state
-  * stage and commit your various changesets, amending when necessary
-  * run `git rebase --continue`
-
---
-
-* Drop a commit
-
-  * rebase interactively
-  * remove the commit from the list
+* staging area diff: empty
 
 ---
 
 class: center, middle
 
-# Exercise: common scenarios ²
+# Changing a commit message
+
+---
+
+## Changing a commit message
+
+* rebase interactively
+
+--
+
+* `reword` the desired commit(s)
+
+
+---
+
+class: center, middle
+
+# Exercise: changing a commit message
 
 ---
 
 ## Tasks
 
-* split the second to last commit (the one you just created) into 3, one per paragraph
-  * _hint:_ you've already seen `git reset FILE`, think about what `git reset REF FILE` could do
+* update the last 2 commit messages to reflect reality
+
+
+---
+
+## Checking your work
+
+* Same thing as before, but with more useful commit messages
+
+---
+
+class: center, middle
+
+# Fixing existing commits
+
+---
+
+## Fixing an existing commit
+
+* rebase interactively and `edit` that commit
+
+--
+
+* stage your fixes
+
+--
+
+
+* `amend` the last commit
+
+--
+
+
+* run `git rebase --continue`
+
+---
+
+## Splitting an existing commit
+
+* rebase interactively and `edit` that commit
+
+--
+
+* `reset` the desired file to the previous commit's state
+
+--
+
+* stage and commit your various changesets, amending when necessary
+
+--
+
+* run `git rebase --continue`
+
+---
+
+class: center, middle
+
+# Exercise: Fixing existing commits
+
+
+---
+
+## Tasks
+
+* split the second to last commit (_lowercase_) into 3, one per paragraph
+  * _hint:_ you've already seen `git reset [FILE]`, think about what `git reset [REF] [FILE]` could do
+
+
+---
+
+## Checking your work
+
+* 7 commits
+
+* commits 4, 5, 6 each lower case a single paragraph
+
+* staging area diff: empty
+
+
+---
+
+class: center, middle
+
+# Dropping a commit
+
+---
+
+## Dropping a commit
+
+* rebase interactively
+
+--
+
+* remove the commit from the list
+
+---
+
+class: center, middle
+
+# Exercise: dropping a commit
+
+---
+
+## Tasks
 
 * drop the last commit
 
-???
-
-```shell
-git rebase -i master
-```
-
-Then:
-* edit `a3ee93a`
-* drop `9be035c7b`
-
-Then:
-```shell
-git reset HEAD~1 README.md
-git add -p README.md
-git commit -m "Update first paragraph" --amend
-git add -p README.md
-git commit -m "Update second paragraph"
-git add -p README.md
-git commit -m "Update third paragraph"
-git rebase --continue
-```
----
-
-### Expected output (log)
-
-```shell
-❱ git log --pretty=oneline
-646b52b15 Update third paragraph
-82263ba8f Update second paragraph
-e44dd5024 Update first paragraph
-ba1abdb6e Clean up markdown files
-192181b56 Setup the basics for the workshop
-87ef53f3f Initialise repository
-```
 
 ---
 
-### Expected output (diff)
+## Checking your work
 
-```shell
-❱ git diff HEAD~3
-diff --git a/README.md b/README.md
-index b617d62..cf69ed7 100644
---- a/README.md
-+++ b/README.md
-@@ -1,5 +1,5 @@
--Lorem ipsum
-+foo
+* 6 commits
 
--Dolor sit amet
-+bar
+* `README.md` entirely lower case
 
--Consectetur adipiscing elit
-+baz
-```
+* staging area diff: empty
 
 ---
 
@@ -948,47 +797,46 @@ class: center, middle
 
 * Make sure your version of `master` is up to date
 
-```shell
-❱ git checkout master
-❱ git pull
-❱ git checkout BRANCH
-```
-
-???
-
-There should be no conflict here, since you're not allowed to change `master`.
-
---
-
-* If necessary, incorporate changes
-
-```shell
-❱ git rebase master
+```console
+$ git checkout master
+$ git pull
+$ git checkout [BRANCH]
 ```
 
 --
 
-You can use the same techniques as interactive rebase to deal with errors
+* Incorporate changes
+
+```console
+$ git rebase master
+```
 
 ---
 
 ## Publishing your work
 
-* For the first time
+* For the first time:
 
-```shell
-❱ git push --set-upstream origin BRANCH
+```console
+$ git push --set-upstream origin [BRANCH]
 ```
 
 --
 
-* Amending a pushed branch
+* Once the upstream has been set:
 
-```shell
-❱ git push -f
+```console
+$ git push
 ```
 
-Note that `-f` is only necessary if you've modified existing commits rather than added new ones
+--
+
+* If you've modified commits rather than just added some:
+
+```console
+$ git push -f
+```
+
 
 ---
 
@@ -1002,20 +850,27 @@ class: center, middle
 
 * make sure your branch is in a state you're happy with
 
+--
+
 * push it (might not work, I have to figure this out)
 
 ---
-
 class: center, middle
+name: questions
 
-# Thanks!
+# Questions?
+
+[@NicolasRinaudo](https://twitter.com/NicolasRinaudo)
+
 
     </textarea>
     <script src="js/remark.js" type="text/javascript">
     </script>
     <script type="text/javascript">
         var slideshow = remark.create({
-        highlightStyle: 'solarized-dark'
+          highlightStyle: 'github',
+          highlightSpans: true,
+          highlightLines: true
       });
     </script>
   </body>

@@ -1,5 +1,5 @@
-foo
+foo2
 
-bar
+bar2
 
-baz
+baz2

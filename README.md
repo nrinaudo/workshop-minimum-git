@@ -2,4 +2,4 @@ foo
 
 bar
 
-BAZ
+baZ

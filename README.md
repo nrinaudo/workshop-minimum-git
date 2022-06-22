@@ -1,5 +1,5 @@
 foo
 
-BAR
+bar
 
 BAZ
